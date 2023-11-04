@@ -1,6 +1,7 @@
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { BiSolidUserCircle } from "react-icons/bi";
+import Link from "next/link";
 
 const query = gql`
   query {
@@ -28,12 +29,18 @@ export default async function Home() {
       </p>
       <h1 className="text-white text-center text-8xl">Maturitní stránka</h1>
       <div className="flex place-content-center gap-[100px] text-3xl">
-        <button className="border-2 rounded-xl p-5 hover:bg-[#404258bc]">
+        <Link
+          href="subjects/pocitacove-systemy"
+          className="border-2 rounded-xl p-5 hover:bg-[#404258bc] duration-250"
+        >
           Počítačové systémy
-        </button>
-        <button className="border-2 rounded-xl p-5 hover:bg-[#404258bc]">
+        </Link>
+        <Link
+          href="subjects/programove-vybaveni"
+          className="border-2 rounded-xl p-5 hover:bg-[#404258bc] duration-250"
+        >
           Programové vybavení
-        </button>
+        </Link>
       </div>
     </main>
   );
