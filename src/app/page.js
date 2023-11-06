@@ -31,13 +31,13 @@ export default async function Home() {
       <div className="flex place-content-center gap-[100px] text-3xl">
         <Link
           href="subjects/pocitacove-systemy"
-          className="border-2 rounded-xl p-5 hover:bg-[#404258bc] duration-250"
+          className="border-2 rounded-xl p-5 hover:bg-[#18122Bbc] duration-250"
         >
           Počítačové systémy
         </Link>
         <Link
           href="subjects/programove-vybaveni"
-          className="border-2 rounded-xl p-5 hover:bg-[#404258bc] duration-250"
+          className="border-2 rounded-xl p-5 hover:bg-[#18122Bbc] duration-250"
         >
           Programové vybavení
         </Link>

@@ -70,12 +70,21 @@ export default async function Page({ params }) {
   data.subjects.data.map((subject) => {
     console.log(subject);
   });
+
   return (
     <div>
       {data.subjects.data.map((subject) => {
-        return JSON.stringify(subject);
+        return (
+          <>
+            <h3 className="text-center text-5xl mt-10">
+              {subject.attributes.Name}
+            </h3>
+            {subject.attributes.questions.data.map((question) => {
+              return question.attributes.Question;
+            })}
+          </>
+        );
       })}
     </div>
   );
-  return <p>{JSON.stringify(data)}</p>;
 }
