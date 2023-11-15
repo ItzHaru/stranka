@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 const albert = Albert_Sans({
   subsets: ["latin"],
-  weight: ["200", "500", "700", "800"],
+  weight: ["200", "500", "700", "800", "900"],
 });
 
 export const metadata = {

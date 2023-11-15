@@ -20,7 +20,7 @@ const getSubjectDetailsQuery = gql`
         attributes {
           Slug
           Name
-          questions {
+          questions(pagination: { limit: 50 }) {
             data {
               attributes {
                 Question
@@ -76,11 +76,15 @@ export default async function Page({ params }) {
       {data.subjects.data.map((subject) => {
         return (
           <>
-            <h3 className="text-center text-5xl mt-10">
+            <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
               {subject.attributes.Name}
             </h3>
-            {subject.attributes.questions.data.map((question) => {
-              return question.attributes.Question;
+            {subject.attributes.questions.data.map((question, index) => {
+              return (
+                <p className="pl-3">
+                  {index + 1}. {question.attributes.Question}
+                </p>
+              );
             })}
           </>
         );

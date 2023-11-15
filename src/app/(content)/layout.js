@@ -1,69 +1,80 @@
 "use client";
-
-import { HiUser } from "react-icons/hi2";
+c;
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   return (
-    <div className="bg-slate-50 min-h-screen text-black">
+    <div className="bg-[#0f112a] min-h-screen text-[#9493b7] contain">
       <header>
-        <nav>
-          <ul className="flex relative items-stretch text-white text-xl border-b bg-[#635985aa]">
+        <nav className="border-b-2 h-16 relative">
+          <ul className="h-full container mx-auto flex relative items-stretchtext-xl">
             <li className="mr-auto">
               <Link href="/">
-                <img className="w-28" src="/images/sspu.png" alt="sspu" />
+                <img className="w-28" src="/images/sspu-white.png" alt="sspu" />
               </Link>
             </li>
-            <li className="relative">
+            <li className="place-content-center relative px-5 h-full">
               <Link
                 className={`${
-                  pathname === "/" ? "bg-[#443C68aa]" : ""
-                } w-full h-full hover:bg-[#443C68aa] grid place-content-center px-5 duration-100`}
+                  pathname === "/" ? "border-[#2a2d5a]" : "border-transparent"
+                } text-[#E2E8F0] border-b-[6px] hover:border-[#2a2d5a] grid place-content-center duration-100 h-full`}
                 href="/"
               >
                 Home
               </Link>
             </li>
-            <li className="relative">
+            <li className="place-content-center relative px-5 h-full">
               <Link
                 className={`${
                   pathname.startsWith("/subjects/pocitacove-systemy")
-                    ? "bg-[#443C68aa]"
-                    : ""
-                } w-full h-full hover:bg-[#443C68aa] grid place-content-center px-5 duration-100`}
+                    ? "border-b border-[#2a2d5a]"
+                    : "border-transparent"
+                } text-[#E2E8F0] border-b-[6px] hover:border-[#2a2d5a] grid place-content-center duration-100 h-full`}
                 href="/subjects/pocitacove-systemy"
               >
                 Počítačové systémy
               </Link>
             </li>
-            <li className="relative">
+            <li className="place-content-center relative px-5 h-full">
               <Link
                 className={`${
                   pathname.startsWith("/subjects/programove-vybaveni")
-                    ? "bg-[#443C68aa]"
-                    : ""
-                } w-full h-full hover:bg-[#443C68aa] grid place-content-center px-5 duration-100`}
+                    ? "border-b border-[#2a2d5a]"
+                    : "border-transparent"
+                } text-[#E2E8F0] border-b-[6px] hover:border-[#2a2d5a] grid place-content-center duration-100 h-full`}
                 href="/subjects/programove-vybaveni"
               >
                 Programové vybavení
               </Link>
             </li>
-            <li className="relative">
+            <li className="place-content-center relative px-5 h-full">
               <Link
                 className={`${
-                  pathname.startsWith("") ? "bg-[#443C68aa]" : ""
-                } w-full h-full hover:bg-[#443C68aa] grid place-content-center px-5 duration-100 text-3xl`}
+                  pathname.startsWith("") ? "" : ""
+                } text-[#E2E8F0] hover:text-[#2a2d5a] grid place-content-center duration-150 text-3xl h-full`}
                 href=""
               >
-                <HiUser />
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
               </Link>
             </li>
           </ul>
         </nav>
       </header>
-      <main>{children}</main>
+      <main className="container mx-auto">{children}</main>
     </div>
   );
 }
