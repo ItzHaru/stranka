@@ -38,7 +38,6 @@ const getSubjectDetailsQuery = gql`
                     }
                   }
                 }
-                Slug
               }
             }
           }
