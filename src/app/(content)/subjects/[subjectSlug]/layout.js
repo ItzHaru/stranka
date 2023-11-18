@@ -1,4 +1,8 @@
+import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
+import { Fragment } from "react";
+import Collapsible from "@/components/Collapsible.jsx";
+import Link from "next/link";
 
 const query = gql`
   query {
@@ -6,28 +10,46 @@ const query = gql`
       data {
         attributes {
           Slug
+        }
+      }
+    }
+  }
+`;
+
+const queryQuery = gql`
+  query {
+    categories {
+      data {
+        attributes {
           Name
+          Logo {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
           questions(pagination: { limit: 50 }) {
             data {
               attributes {
                 Question
-                subquestions(pagination: { limit: 100 }) {
-                  data {
-                    attributes {
-                      Name
-                    }
-                  }
-                }
-                tasks {
-                  data {
-                    attributes {
-                      Name
-                    }
-                  }
-                }
+                Slug
               }
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+const getSubjectDetailsQuery = gql`
+  query Query($slug: String!) {
+    subjects(filters: { Slug: { eq: $slug } }) {
+      data {
+        attributes {
+          Slug
+          Name
           categories {
             data {
               attributes {
@@ -36,6 +58,14 @@ const query = gql`
                   data {
                     attributes {
                       name
+                    }
+                  }
+                }
+                questions(pagination: { limit: 30 }) {
+                  data {
+                    attributes {
+                      Question
+                      Slug
                     }
                   }
                 }
@@ -48,6 +78,70 @@ const query = gql`
   }
 `;
 
-export default function Layout({ children }) {
-  return <></>;
+export async function generateStaticParams() {
+  const client = getClient();
+  const { data } = await client.query({ query: query });
+  return data.subjects.data.map((subject) => {
+    return {
+      subjectSlug: subject.attributes.Slug,
+    };
+  });
+}
+
+export const dynamicParams = false;
+
+export default async function Layout({ children, params }) {
+  const client = getClient();
+  const { data } = await client.query({
+    query: queryQuery,
+  });
+  const { data: data2 } = await client.query({
+    query: getSubjectDetailsQuery,
+    variables: { slug: params.subjectSlug },
+  });
+  // console.log(data.categories.data[0].attributes.questions.data[0].attributes);
+  const subjects = data2.subjects.data.map((subject) => {
+    return {
+      slug: subject.attributes.Slug,
+      categories: subject.attributes.categories.data.map((category) => {
+        return {
+          name: category.attributes.Name,
+          logo: category.attributes.Logo,
+          questions: category.attributes.questions.data.map((question) => {
+            return {
+              name: question.attributes.Question,
+              slug: question.attributes.Slug,
+            };
+          }),
+        };
+      }),
+    };
+  });
+  const categories = subjects[0].categories;
+  return (
+    <div className="grid grid-cols-12">
+      <aside className="col-span-2 flex flex-col gap-1">
+        {categories.map((category) => {
+          return (
+            <Collapsible title={category.name}>
+              <div className="flex flex-col gap-1">
+                {category.questions.map((question) => {
+                  return (
+                    <Link
+                      href={
+                        "/subjects/" + params.subjectSlug + "/" + question.slug
+                      }
+                    >
+                      {question.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </Collapsible>
+          );
+        })}
+      </aside>
+      <div className="col-span-10">{children}</div>
+    </div>
+  );
 }
