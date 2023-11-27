@@ -1,8 +1,9 @@
 "use client";
+import Image from "next/image";
 
 import { useState } from "react";
 
-export default function Collapsible({ title, children }) {
+export default function Collapsible({ title, children, url }) {
   const [isOpened, setIsOpened] = useState(true);
 
   function toggleCollapsible() {
@@ -14,9 +15,15 @@ export default function Collapsible({ title, children }) {
       <button
         onClick={toggleCollapsible}
         type="button"
-        className="rounded-md px-4 py-2"
+        className="rounded-md px-4 py-2 flex justify-between w-full"
       >
         {title}
+        <Image
+          src={"http://localhost:1337" + url}
+          alt="Logo"
+          width={20}
+          height={20}
+        />
       </button>
       <div
         className={`grid duration-200`}

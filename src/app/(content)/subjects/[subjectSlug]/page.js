@@ -74,7 +74,7 @@ export default async function Page({ params }) {
     <div>
       {data.subjects.data.map((subject) => {
         return (
-          <>
+          <div className="bg-[#27293f]">
             <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
               {subject.attributes.Name}
             </h3>
@@ -85,7 +85,7 @@ export default async function Page({ params }) {
                 </p>
               );
             })}
-          </>
+          </div>
         );
       })}
     </div>
