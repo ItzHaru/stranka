@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   ClerkProvider,
@@ -14,13 +14,19 @@ import {
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   return (
-    <div className="bg-[#0f112a] min-h-screen text-[#9493b7] contain">
+    <div className="min-h-screen text-[#9493b7]">
       <header>
-        <nav className="border-b-2 h-16 relative">
+        <nav className="bg-[#0f112a] border-b-2 h-16 relative">
           <ul className="h-full container mx-auto flex relative items-stretchtext-xl">
             <li className="mr-auto">
               <Link href="/">
-                <Image className="w-28" src="/images/sspu-white.png" alt="sspu" width={112} height={60}/>
+                <Image
+                  className="w-28"
+                  src="/images/sspu-white.png"
+                  alt="sspu"
+                  width={112}
+                  height={60}
+                />
               </Link>
             </li>
             <li className="place-content-center relative px-5 h-full">
@@ -75,7 +81,7 @@ export default function RootLayout({ children }) {
           </ul>
         </nav>
       </header>
-      <main className="container mx-auto">{children}</main>
+      <main className="mx-auto">{children}</main>
     </div>
   );
 }

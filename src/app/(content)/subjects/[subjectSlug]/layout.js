@@ -121,7 +121,7 @@ export default async function Layout({ children, params }) {
   });
   const categories = subjects[0].categories;
   return (
-    <div className="grid grid-cols-12">
+    <div className="bg-[#27293f] grid grid-cols-12">
       <aside className="col-span-2 flex flex-col gap-1 bg-[#1f2132]">
         {categories.map((category) => {
           return (
