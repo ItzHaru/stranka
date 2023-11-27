@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { Fragment } from "react";
 import Collapsible from "@/components/Collapsible.jsx";
 import Link from "next/link";
+import Image from 'next/image';
 
 const query = gql`
   query {
@@ -16,7 +17,7 @@ const query = gql`
   }
 `;
 
-const queryQuery = gql`
+const queryCategory = gql`
   query {
     categories {
       data {
@@ -57,7 +58,7 @@ const getSubjectDetailsQuery = gql`
                 Logo {
                   data {
                     attributes {
-                      name
+                      url
                     }
                   }
                 }
@@ -93,7 +94,7 @@ export const dynamicParams = false;
 export default async function Layout({ children, params }) {
   const client = getClient();
   const { data } = await client.query({
-    query: queryQuery,
+    query: queryCategory,
   });
   const { data: data2 } = await client.query({
     query: getSubjectDetailsQuery,
@@ -105,6 +106,7 @@ export default async function Layout({ children, params }) {
       slug: subject.attributes.Slug,
       categories: subject.attributes.categories.data.map((category) => {
         return {
+          id: category.attributes.id,
           name: category.attributes.Name,
           logo: category.attributes.Logo,
           questions: category.attributes.questions.data.map((question) => {
@@ -123,11 +125,13 @@ export default async function Layout({ children, params }) {
       <aside className="col-span-2 flex flex-col gap-1">
         {categories.map((category) => {
           return (
-            <Collapsible title={category.name}>
+            <Collapsible key={category.id} title={category.name}>
+              <Image src={category.logo} alt="Logo" />
               <div className="flex flex-col gap-1">
                 {category.questions.map((question) => {
                   return (
                     <Link
+                      key={question.id}
                       href={
                         "/subjects/" + params.subjectSlug + "/" + question.slug
                       }

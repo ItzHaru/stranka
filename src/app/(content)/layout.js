@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from 'next/image';
 import { usePathname } from "next/navigation";
 import {
   ClerkProvider,
@@ -19,7 +20,7 @@ export default function RootLayout({ children }) {
           <ul className="h-full container mx-auto flex relative items-stretchtext-xl">
             <li className="mr-auto">
               <Link href="/">
-                <img className="w-28" src="/images/sspu-white.png" alt="sspu" />
+                <Image className="w-28" src="/images/sspu-white.png" alt="sspu" width={112} height={60}/>
               </Link>
             </li>
             <li className="place-content-center relative px-5 h-full">

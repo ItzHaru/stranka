@@ -79,6 +79,7 @@ export default async function Page({ params }) {
               {subject.attributes.Name}
             </h3>
             {subject.attributes.questions.data.map((question, index) => {
+              key={index}
               return (
                 <p className="pl-3">
                   {index + 1}. {question.attributes.Question}
