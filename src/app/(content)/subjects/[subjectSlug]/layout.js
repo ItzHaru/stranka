@@ -32,7 +32,7 @@ const queryCategory = gql`
           questions(pagination: { limit: 50 }) {
             data {
               attributes {
-                Question
+                Name
                 Slug
               }
             }
@@ -64,7 +64,7 @@ const getSubjectDetailsQuery = gql`
                 questions(pagination: { limit: 30 }) {
                   data {
                     attributes {
-                      Question
+                      Name
                       Slug
                     }
                   }
@@ -99,7 +99,6 @@ export default async function Layout({ children, params }) {
     query: getSubjectDetailsQuery,
     variables: { slug: params.subjectSlug },
   });
-  // console.log(data.categories.data[0].attributes.questions.data[0].attributes);
   const subjects = data2.subjects.data.map((subject) => {
     return {
       slug: subject.attributes.Slug,
@@ -110,7 +109,7 @@ export default async function Layout({ children, params }) {
             logo: category.attributes.Logo.data.attributes.url,
             questions: category.attributes.questions.data.map((question) => {
               return {
-                name: question.attributes.Question,
+                name: question.attributes.Name,
                 slug: question.attributes.Slug,
               };
             }),
@@ -121,7 +120,7 @@ export default async function Layout({ children, params }) {
   });
   const categories = subjects[0].categories;
   return (
-    <div className="bg-[#27293f] grid grid-cols-12">
+    <div className="bg-[#27293f] grid grid-cols-12 h-full">
       <aside className="col-span-2 flex flex-col gap-1 bg-[#1f2132]">
         {categories.map((category) => {
           return (

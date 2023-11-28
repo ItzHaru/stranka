@@ -23,7 +23,7 @@ const getSubjectDetailsQuery = gql`
           questions(pagination: { limit: 50 }) {
             data {
               attributes {
-                Question
+                Name
               }
             }
           }
@@ -57,7 +57,7 @@ export async function generateStaticParams() {
   });
 }
 
-export const dynamicParams = false;
+export const dynamicParams = "blocking";
 
 export default async function Page({ params }) {
   const client = getClient();
@@ -76,12 +76,13 @@ export default async function Page({ params }) {
         return (
           <div className="bg-[#27293f]">
             <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
+              hlavni stranka
               {subject.attributes.Name}
             </h3>
             {subject.attributes.questions.data.map((question, index) => {
               return (
                 <p className="pl-3">
-                  {index + 1}. {question.attributes.Question}
+                  {index + 1}. {question.attributes.Name}
                 </p>
               );
             })}

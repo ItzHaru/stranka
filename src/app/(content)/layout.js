@@ -14,9 +14,14 @@ import {
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   return (
-    <div className="min-h-screen text-[#9493b7]">
+    <div
+      className="grid min-h-screen h-screen text-[#9493b7]"
+      style={{
+        gridTemplateRows: "70px 1fr",
+      }}
+    >
       <header>
-        <nav className="bg-[#0f112a] border-b-2 h-16 relative">
+        <nav className="bg-[#0f112a] border-b-2 relative h-full">
           <ul className="h-full container mx-auto flex relative items-stretchtext-xl">
             <li className="mr-auto">
               <Link href="/">
@@ -81,7 +86,7 @@ export default function RootLayout({ children }) {
           </ul>
         </nav>
       </header>
-      <main className="mx-auto">{children}</main>
+      <main className="mx-auto h-full">{children}</main>
     </div>
   );
 }

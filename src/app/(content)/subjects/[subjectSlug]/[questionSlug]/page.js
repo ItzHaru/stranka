@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 
 const query = gql`
   query {
-    subjects {
+    questions {
       data {
         attributes {
           Slug
@@ -13,31 +13,24 @@ const query = gql`
   }
 `;
 
-const getSubjectDetailsQuery = gql`
+const getQuestionDetailsQuery = gql`
   query Query($slug: String!) {
-    subjects(filters: { Slug: { eq: $slug } }) {
+    questions(filters: { Slug: { eq: $slug } }) {
       data {
         attributes {
-          Slug
           Name
-          questions(pagination: { limit: 50 }) {
-            data {
-              attributes {
-                Question
-              }
-            }
-          }
-          categories {
+          Slug
+          subquestions {
             data {
               attributes {
                 Name
-                Logo {
-                  data {
-                    attributes {
-                      name
-                    }
-                  }
-                }
+              }
+            }
+          }
+          tasks {
+            data {
+              attributes {
+                Name
               }
             }
           }
@@ -46,44 +39,24 @@ const getSubjectDetailsQuery = gql`
     }
   }
 `;
-
-export async function generateStaticParams() {
-  const client = getClient();
-  const { data } = await client.query({ query: query });
-  return data.subjects.data.map((subject) => {
-    return {
-      subjectSlug: subject.attributes.Slug,
-    };
-  });
-}
-
-export const dynamicParams = false;
 
 export default async function Page({ params }) {
   const client = getClient();
   const { data } = await client.query({
-    query: getSubjectDetailsQuery,
-    variables: { slug: params.subjectSlug },
-  });
-  console.log(data.subjects.data);
-  data.subjects.data.map((subject) => {
-    console.log(subject);
+    query: getQuestionDetailsQuery,
+    variables: { slug: params.questionSlug },
   });
 
   return (
     <div>
-      {data.subjects.data.map((subject) => {
+      {data.questions.data.map((question) => {
         return (
           <>
             <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
-              {subject.attributes.Name}
+              {question.attributes.Slug}
             </h3>
-            {subject.attributes.questions.data.map((question, index) => {
-              return (
-                <p className="pl-3">
-                  {index + 1}. {question.attributes.Question}
-                </p>
-              );
+            {question.attributes.subquestions.data.map((item, index) => {
+              return <p className="pl-3">{item.attributes.Name}</p>;
             })}
           </>
         );
