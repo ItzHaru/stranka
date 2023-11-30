@@ -32,7 +32,7 @@ const queryCategory = gql`
           questions(pagination: { limit: 50 }) {
             data {
               attributes {
-                Name
+                Question
                 Slug
               }
             }

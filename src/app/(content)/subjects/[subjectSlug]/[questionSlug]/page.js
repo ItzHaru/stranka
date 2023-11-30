@@ -53,7 +53,7 @@ export default async function Page({ params }) {
         return (
           <>
             <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
-              {question.attributes.Slug}
+              {question.attributes.Name}
             </h3>
             {question.attributes.subquestions.data.map((item, index) => {
               return <p className="pl-3">{item.attributes.Name}</p>;

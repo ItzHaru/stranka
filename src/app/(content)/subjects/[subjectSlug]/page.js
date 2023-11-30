@@ -27,20 +27,6 @@ const getSubjectDetailsQuery = gql`
               }
             }
           }
-          categories {
-            data {
-              attributes {
-                Name
-                Logo {
-                  data {
-                    attributes {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
       }
     }
