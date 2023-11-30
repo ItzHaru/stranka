@@ -24,7 +24,6 @@ const query = gql`
 export default async function Home() {
   const client = getClient();
   const { data } = await client.query({ query });
-  console.log(data);
 
   return (
     <main className="flex min-h-screen flex-col">

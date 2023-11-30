@@ -45,6 +45,7 @@ export default async function Page({ params }) {
   const { data } = await client.query({
     query: getQuestionDetailsQuery,
     variables: { slug: params.questionSlug },
+    //fetchPolicy: "no-cache",
   });
 
   return (

@@ -80,7 +80,11 @@ const getSubjectDetailsQuery = gql`
 
 export async function generateStaticParams() {
   const client = getClient();
-  const { data } = await client.query({ query: query });
+  const { data } = await client.query({
+    query: query,
+    fetchPolicy: "no-cache",
+  });
+
   return data.subjects.data.map((subject) => {
     return {
       subjectSlug: subject.attributes.Slug,
@@ -98,7 +102,9 @@ export default async function Layout({ children, params }) {
   const { data: data2 } = await client.query({
     query: getSubjectDetailsQuery,
     variables: { slug: params.subjectSlug },
+    fetchPolicy: "no-cache",
   });
+  console.log("results", data2.subjects.data[0].attributes.categories);
   const subjects = data2.subjects.data.map((subject) => {
     return {
       slug: subject.attributes.Slug,
