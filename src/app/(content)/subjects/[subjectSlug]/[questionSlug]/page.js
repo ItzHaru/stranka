@@ -57,7 +57,11 @@ export default async function Page({ params }) {
               {question.attributes.Name}
             </h3>
             {question.attributes.subquestions.data.map((item, index) => {
-              return <p className="pl-3">{item.attributes.Name}</p>;
+              return (
+                <p key={index} className="pl-3">
+                  {item.attributes.Name}
+                </p>
+              );
             })}
           </div>
         );
