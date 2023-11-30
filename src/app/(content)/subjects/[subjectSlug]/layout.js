@@ -126,7 +126,7 @@ export default async function Layout({ children, params }) {
   const categories = subjects[0].categories;
   return (
     <div className="bg-[#27293f] grid grid-cols-12 h-full">
-      <aside className="col-span-2 flex flex-col gap-1 bg-[#1f2132]">
+      <aside className="col-span-3 flex flex-col gap-1 bg-[#1f2132] px-10 pb-5">
         {categories.map((category) => {
           return (
             <Collapsible
@@ -134,8 +134,8 @@ export default async function Layout({ children, params }) {
               title={category.name}
               url={category.logo}
             >
-              <div className="flex flex-col gap-1">
-                {category.questions.map((question) => {
+              <div className="border-l-4 mt-3 border-[#323349] px-4 flex flex-col gap-1">
+                {category.questions.map((question, index) => {
                   return (
                     <Link
                       key={question.slug}
@@ -143,7 +143,7 @@ export default async function Layout({ children, params }) {
                         "/subjects/" + params.subjectSlug + "/" + question.slug
                       }
                     >
-                      {question.name}
+                      {index + 1}. {question.name}
                     </Link>
                   );
                 })}
@@ -152,7 +152,7 @@ export default async function Layout({ children, params }) {
           );
         })}
       </aside>
-      <div className="col-span-10">{children}</div>
+      <div className="col-span-9">{children}</div>
     </div>
   );
 }

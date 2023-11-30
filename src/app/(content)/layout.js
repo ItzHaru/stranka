@@ -86,7 +86,8 @@ export default function RootLayout({ children }) {
           </ul>
         </nav>
       </header>
-      <main className="mx-auto h-full">{children}</main>
+      <main className="h-full">{children}</main>
+      <footer className="bg-[#0f112a] p-6">&copy; 2023 Růženka Perinová</footer>
     </div>
   );
 }

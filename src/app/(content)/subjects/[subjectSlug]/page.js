@@ -62,7 +62,6 @@ export default async function Page({ params }) {
         return (
           <div key={subject.slug} className="bg-[#27293f]">
             <h3 className="text-center text-[#E2E8F0] text-5xl mt-10">
-              hlavni stranka
               {subject.attributes.Name}
             </h3>
             {subject.attributes.questions.data.map((question, index) => {

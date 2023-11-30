@@ -15,7 +15,7 @@ export default function Collapsible({ title, children, url }) {
       <button
         onClick={toggleCollapsible}
         type="button"
-        className="rounded-md px-4 py-2 flex justify-between w-full"
+        className="rounded-xl px-5 py-2 mt-5 flex justify-between w-full bg-[#323349] text-[#e2e8f0] border-4 border-[#171926]"
       >
         {title}
         <Image
